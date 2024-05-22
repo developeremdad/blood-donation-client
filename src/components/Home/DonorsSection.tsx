@@ -25,10 +25,12 @@ const DonorsSection = () => {
         ))}
       </div> */}
       <div className="container mx-auto py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Find Blood Donors</h1>
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold mb-2 text-orange-500">
+            Find Blood Donors
+          </h1>
           <p className="text-gray-500">
-            Search for available blood donors near you.
+            Search for available blood donors near you
           </p>
         </div>
         <div className="bg-white  rounded-lg shadow-md p-6 mb-8">
@@ -41,7 +43,7 @@ const DonorsSection = () => {
                 Blood Type
               </label>
               <select
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2 border"
                 id="blood-type"
               >
                 <option value="">All</option>
@@ -63,9 +65,9 @@ const DonorsSection = () => {
                 Location
               </label>
               <input
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2 border"
                 id="location"
-                placeholder="Enter a city or zip code"
+                placeholder="Enter location"
                 type="text"
               />
             </div>
@@ -77,7 +79,7 @@ const DonorsSection = () => {
                 Availability
               </label>
               <select
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2 border"
                 id="availability"
               >
                 <option value="">All</option>
@@ -96,7 +98,7 @@ const DonorsSection = () => {
           </form>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {donors.map((item, index) => (
             <div
               key={index}
