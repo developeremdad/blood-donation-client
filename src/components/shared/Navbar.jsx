@@ -51,7 +51,7 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost bg-accent btn-sm text-white"
+              className="bg-orange-500 hover:bg-orange-600 rounded-full px-4 py-2 text-white"
             >
               <div className="">Profile</div>
             </div>

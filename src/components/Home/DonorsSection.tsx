@@ -89,7 +89,7 @@ const DonorsSection = () => {
             </div>
             <div className="col-span-1 sm:col-span-2 md:col-span-3 flex justify-end">
               <button
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                className="bg-orange-500 hover:bg-orange-600 rounded-full px-4 py-2 text-white"
                 type="submit"
               >
                 Search
