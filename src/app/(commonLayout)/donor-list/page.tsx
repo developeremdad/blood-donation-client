@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const DonorsSection = () => {
+const DonorsList = () => {
   const donors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div className="">
@@ -15,7 +15,21 @@ const DonorsSection = () => {
           </p>
         </div>
         <div className="bg-white  rounded-lg shadow-md p-6 mb-8">
-          <form className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <form className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700  mb-1"
+                htmlFor="location"
+              >
+                Search Donor
+              </label>
+              <input
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2 border"
+                id="location"
+                placeholder="Search donor. . ."
+                type="text"
+              />
+            </div>
             <div>
               <label
                 className="block text-sm font-medium text-gray-700  mb-1"
@@ -68,7 +82,7 @@ const DonorsSection = () => {
                 <option value="unavailable">Unavailable</option>
               </select>
             </div>
-            <div className="col-span-1 sm:col-span-2 md:col-span-3 flex justify-end">
+            <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center">
               <button
                 className="bg-orange-500 hover:bg-orange-600 rounded-full px-4 py-2 text-white"
                 type="submit"
@@ -83,7 +97,7 @@ const DonorsSection = () => {
           {donors.map((item, index) => (
             <div
               key={index}
-              className="bg-white  rounded-lg  shadow-sm hover:shadow-lg border border-orange-500 overflow-hidden"
+              className="bg-white  rounded-lg rounded-b-none shadow-sm hover:shadow-md border overflow-hidden"
             >
               <div className="aspect-w-4 text-center aspect-h-3 p-3 bg-gray-600">
                 {!item?.image ? (
@@ -107,18 +121,29 @@ const DonorsSection = () => {
                 <p className="text-gray-500 mb-2">Blood Type: A+</p>
                 <p className="text-gray-500 mb-2">Location: New York, NY</p>
                 <p className="text-green-500 font-medium mb-2">Available</p>
-                <Link className="" href={`/donor-list/3`}>
-                  <button className="btn btn-sm rounded bg-orange-500 text-white w-full hover:bg-orange-700">
+                <button className="btn btn-sm rounded bg-orange-500 text-white w-full hover:bg-orange-700">
+                  <Link className="" href={`/donor-list/2`}>
                     View Details
-                  </button>
-                </Link>
+                  </Link>
+                </button>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="flex items-center justify-center my-20 ">
+          <div className="join">
+            <button className="join-item btn bg-orange-500 text-xl">«</button>
+            <button className="join-item btn">1</button>
+            <button className="join-item btn btn-active">2</button>
+            <button className="join-item btn">3</button>
+            <button className="join-item btn">4</button>
+            <button className="join-item btn bg-orange-500 text-xl">»</button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default DonorsSection;
+export default DonorsList;

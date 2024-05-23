@@ -14,9 +14,7 @@ const RegisterForm = () => {
     location: "",
   });
 
-  const handleChange = (e: {
-    target: { name: any; value: any; type: any; checked: any };
-  }) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
@@ -113,7 +111,24 @@ const RegisterForm = () => {
               <label className="label">
                 <span className="label-text">Blood Type</span>
               </label>
-              <input
+              <select
+                className="input input-bordered"
+                name="bloodType"
+                id="blood-type"
+                value={formData.bloodType}
+                onChange={handleChange}
+                required
+              >
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+              {/* <input
                 type="text"
                 name="bloodType"
                 placeholder="Blood Type"
@@ -121,7 +136,7 @@ const RegisterForm = () => {
                 value={formData.bloodType}
                 onChange={handleChange}
                 required
-              />
+              /> */}
             </div>
             <div className="form-control">
               <label className="label">

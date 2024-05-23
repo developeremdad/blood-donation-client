@@ -1,5 +1,6 @@
 import image from "@/assets/hero.png";
 import Image from "next/image";
+import HeroSearchButton from "../UI/HeroSearchButton";
 const Hero = () => {
   return (
     <div className="hero">
@@ -24,27 +25,7 @@ const Hero = () => {
             eius?
           </p>
           <div className="flex items-center justify-center">
-            <div className="group input h-10 input-bordered flex items-center rounded-full max-w-[300px]">
-              <input
-                type="text"
-                className="grow text-black"
-                placeholder="Search anything . . ."
-              />
-              <button className="rounded-full py-1 group-focus-within:text-red-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-6 opacity-70"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+            <HeroSearchButton />
           </div>
         </div>
       </div>

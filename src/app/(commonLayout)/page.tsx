@@ -4,7 +4,7 @@ import Hero from "@/components/Home/Hero";
 import ServiceLocation from "@/components/Home/ServiceLocation";
 import Testimonial from "@/components/Home/Testimonial";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
       <Hero />
@@ -14,4 +14,6 @@ export default function Home() {
       <Testimonial />
     </div>
   );
-}
+};
+
+export default Home;

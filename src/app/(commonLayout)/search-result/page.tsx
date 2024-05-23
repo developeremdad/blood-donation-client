@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const DonorsSection = () => {
+const SearchResult = () => {
   const donors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div className="">
@@ -83,7 +83,7 @@ const DonorsSection = () => {
           {donors.map((item, index) => (
             <div
               key={index}
-              className="bg-white  rounded-lg  shadow-sm hover:shadow-lg border border-orange-500 overflow-hidden"
+              className="bg-white  rounded-lg rounded-b-none shadow-sm hover:shadow-md border overflow-hidden"
             >
               <div className="aspect-w-4 text-center aspect-h-3 p-3 bg-gray-600">
                 {!item?.image ? (
@@ -107,11 +107,11 @@ const DonorsSection = () => {
                 <p className="text-gray-500 mb-2">Blood Type: A+</p>
                 <p className="text-gray-500 mb-2">Location: New York, NY</p>
                 <p className="text-green-500 font-medium mb-2">Available</p>
-                <Link className="" href={`/donor-list/3`}>
-                  <button className="btn btn-sm rounded bg-orange-500 text-white w-full hover:bg-orange-700">
+                <button className="btn btn-sm rounded bg-orange-500 text-white w-full hover:bg-orange-700">
+                  <Link className="" href="/donar-details">
                     View Details
-                  </button>
-                </Link>
+                  </Link>
+                </button>
               </div>
             </div>
           ))}
@@ -121,4 +121,4 @@ const DonorsSection = () => {
   );
 };
 
-export default DonorsSection;
+export default SearchResult;
