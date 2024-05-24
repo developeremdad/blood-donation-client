@@ -14,28 +14,18 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="hover:bg-orange-500 active:bg-orange-500">
-            <Link href="/dashboard/my-profile">
+            <Link href="/dashboard/user/my-profile">
               <span className="block py-2.5 px-4">My Profile</span>
             </Link>
           </li>
           <li className="hover:bg-orange-500">
-            <Link href="/dashboard/my-requests">
+            <Link href="/dashboard/user/my-requests">
               <span className="block py-2.5 px-4">My Requests</span>
             </Link>
           </li>
           <li className="hover:bg-orange-500">
-            <Link href="/dashboard/my-donations">
+            <Link href="/dashboard/user/my-donations">
               <span className="block py-2.5 px-4">My Donations</span>
-            </Link>
-          </li>
-          <li className="hover:bg-orange-500">
-            <Link href="/dashboard/settings">
-              <span className="block py-2.5 px-4">Settings</span>
-            </Link>
-          </li>
-          <li className="hover:bg-orange-500">
-            <Link href="/dashboard/help">
-              <span className="block py-2.5 px-4">Help</span>
             </Link>
           </li>
         </ul>
