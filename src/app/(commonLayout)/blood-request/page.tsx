@@ -15,7 +15,7 @@ const BloodRequestPage = () => {
 
   return (
     <div className="container mx-auto flex justify-center">
-      <div className="max-w-lg border rounded px-4 py-6 border-orange-500 my-10 shadow-md">
+      <div className="lg:max-w-lg border rounded px-4 py-6 border-orange-500 my-10 shadow-md">
         <h3 className="text-2xl font-bold text-center text-orange-500">
           Blood Request Form
         </h3>
@@ -79,7 +79,7 @@ const BloodRequestPage = () => {
                 name="terms"
                 required
                 onChange={(e) => setAgreeTerms(e.target.checked)}
-                className="checkbox"
+                className="checkbox border-2"
               />
               <span className="label-text">
                 I agree to the terms and conditions

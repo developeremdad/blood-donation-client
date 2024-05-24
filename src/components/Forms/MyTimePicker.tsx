@@ -22,7 +22,7 @@ const MyTimePicker = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="form-control my-2">
+        <div className="form-control">
           {label && (
             <label className="label">
               <p className="label-text">{label}</p>

@@ -8,6 +8,7 @@ type TDatePickerProps = {
   placeholder?: string;
   required?: boolean;
   css?: string;
+  disabled?: boolean;
 };
 
 const MyDatePicker = ({
@@ -16,6 +17,7 @@ const MyDatePicker = ({
   placeholder,
   required,
   css,
+  disabled = false,
 }: TDatePickerProps) => {
   const { control, setValue } = useFormContext();
 
@@ -32,7 +34,7 @@ const MyDatePicker = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="form-control my-2">
+        <div className="form-control">
           {label && (
             <label className="label">
               <p className="label-text">{label}</p>
@@ -40,6 +42,7 @@ const MyDatePicker = ({
           )}
           <DatePicker
             {...field}
+            disabled={disabled}
             selected={(field.value && new Date(field.value)) || null}
             onChange={(date) => {
               field.onChange(date);

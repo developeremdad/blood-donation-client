@@ -1,24 +1,22 @@
 import { Controller, useFormContext } from "react-hook-form";
 
-type TInputProps = {
+type TSelectProps = {
   name: string;
   label?: string;
-  placeholder?: string;
-  type?: string;
+  options: { value: string; label: string }[];
   required?: boolean;
   css?: string;
   disabled?: boolean;
 };
 
-const MyInput = ({
+const MySelect = ({
   name,
-  type = "text",
-  placeholder,
   label = "",
+  options,
   required,
   css,
   disabled = false,
-}: TInputProps) => {
+}: TSelectProps) => {
   const { control } = useFormContext();
 
   return (
@@ -32,18 +30,25 @@ const MyInput = ({
               <p className="label-text">{label}</p>
             </label>
           )}
-          <input
+          <select
             {...field}
-            type={type}
             disabled={disabled}
-            className={`input input-bordered ${css ? css : ""}`}
-            placeholder={placeholder}
+            className={`select select-bordered ${css ? css : ""}`}
             required={required}
-          />
+          >
+            <option value="" disabled selected hidden>
+              {label}
+            </option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       )}
     />
   );
 };
 
-export default MyInput;
+export default MySelect;

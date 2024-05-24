@@ -53,14 +53,14 @@ const Navbar = () => {
               role="button"
               className="bg-orange-500 hover:bg-orange-600 rounded-full px-4 py-2 text-white"
             >
-              <div className="">Profile</div>
+              <div className="">Emdadullah</div>
             </div>
             <ul
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link href="/">Profile</Link>
+                <Link href="/dashboard/my-profile">Profile</Link>
               </li>
               <li>
                 <Link href="/register">Register</Link>
