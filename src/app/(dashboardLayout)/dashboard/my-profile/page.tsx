@@ -30,7 +30,7 @@ const MyProfilePage = () => {
     lastDonationDate: "2024-05-25",
   };
   return (
-    <div className="lg:max-w-lg mx-auto border rounded px-4 py-6 bg-white border-orange-500 my-10 shadow-md">
+    <div className="lg:max-w-lg mx-auto border rounded px-4 py-6 bg-white border-orange-500 my-5 shadow-md">
       <h3 className="text-2xl font-bold text-center text-orange-500 mb-2">
         My Profile
       </h3>
@@ -141,7 +141,7 @@ const MyProfilePage = () => {
         </button>
       )}
       <div className="form-control mt-4">
-        <Link href="/change-password">
+        <Link href="/dashboard/change-password">
           <button className="btn btn-sm rounded-full bg-orange-500 text-white w-full hover:bg-orange-600">
             Change Password
           </button>
