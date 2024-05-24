@@ -1,9 +1,14 @@
 "use client";
 
+import { storeUserInfo } from "@/services/actions/auth.services";
+import { userLogin } from "@/services/actions/userLogin";
+import { registerUser } from "@/services/actions/userRegister";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +17,9 @@ const RegisterForm = () => {
     donateBlood: false,
     bloodType: "",
     location: "",
+    age: 0,
+    bio: "",
+    lastDonationDate: "",
   });
 
   const handleChange = (e: any) => {
@@ -28,8 +36,21 @@ const RegisterForm = () => {
       alert("Passwords do not match");
       return;
     }
-    // Handle form submission (e.g., send data to API)
-    console.log("Form submitted", formData);
+    formData.age = Number(formData.age);
+    try {
+      const res = await registerUser(formData);
+      if (res?.data?.id) {
+        const result = await userLogin({
+          password: formData.password,
+          email: formData.email,
+        });
+        if (result?.data?.token) {
+          storeUserInfo({ token: result?.data?.token });
+        }
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   return (
     <form className="card-body" onSubmit={handleSubmit}>
@@ -93,9 +114,38 @@ const RegisterForm = () => {
             required
           />
         </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Age</span>
+          </label>
+          <input
+            type="number"
+            name="age"
+            placeholder="Enter age"
+            className="input input-bordered"
+            value={formData.age}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Last Donation Date</span>
+          </label>
+          <input
+            type="date"
+            name="lastDonationDate"
+            className="input input-bordered"
+            value={formData.lastDonationDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div className="form-control col-span-2">
           <label className="label cursor-pointer">
-            <span className="label-text">Donate Blood?</span>
+            <span className="label-text font-bold">
+              Donate Blood Availability?
+            </span>
             <input
               type="checkbox"
               name="donateBlood"
@@ -128,15 +178,6 @@ const RegisterForm = () => {
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
               </select>
-              {/* <input
-                type="text"
-                name="bloodType"
-                placeholder="Blood Type"
-                className="input input-bordered"
-                value={formData.bloodType}
-                onChange={handleChange}
-                required
-              /> */}
             </div>
             <div className="form-control">
               <label className="label">

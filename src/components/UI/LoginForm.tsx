@@ -1,5 +1,7 @@
 "use client";
 
+import { storeUserInfo } from "@/services/actions/auth.services";
+import { userLogin } from "@/services/actions/userLogin";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -9,21 +11,30 @@ const LoginForm = () => {
     password: "",
   });
 
-  const handleChange = (e: {
-    target: { name: any; value: any; type: any; checked: any };
-  }) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
-    // Handle form submission (e.g., send data to API)
-    console.log("Form submitted", formData);
+    console.log(formData);
+    try {
+      const res = await userLogin(formData);
+      console.log(res);
+      if (res?.data?.token) {
+        // toast.success(res?.message);
+        storeUserInfo({ token: res?.data?.accessToken });
+      } else {
+        // setError(res.message);
+        console.log(res);
+      }
+    } catch (err: any) {
+      console.error(err?.message);
+    }
   };
   return (
     <form className="card-body" onSubmit={handleSubmit}>
