@@ -133,12 +133,16 @@ const DonorsList = () => {
 
         <div className="flex items-center justify-center my-20 ">
           <div className="join">
-            <button className="join-item btn bg-orange-500 text-xl">«</button>
-            <button className="join-item btn">1</button>
-            <button className="join-item btn btn-active">2</button>
-            <button className="join-item btn">3</button>
-            <button className="join-item btn">4</button>
-            <button className="join-item btn bg-orange-500 text-xl">»</button>
+            <button className="join-item btn btn-sm bg-orange-500 text-xl text-white">
+              «
+            </button>
+            <button className="join-item btn btn-sm">1</button>
+            <button className="join-item btn btn-sm btn-active">2</button>
+            <button className="join-item btn btn-sm">3</button>
+            <button className="join-item btn btn-sm">4</button>
+            <button className="join-item btn btn-sm bg-orange-500 text-xl text-white">
+              »
+            </button>
           </div>
         </div>
       </div>
