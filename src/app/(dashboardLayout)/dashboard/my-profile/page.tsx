@@ -33,14 +33,14 @@ const MyProfilePage = () => {
     lastDonationDate: "2024-05-25",
   };
   return (
-    <div className="lg:max-w-lg mx-auto border rounded px-4 py-6 bg-white border-orange-500 my-5 shadow-md">
+    <div className="container mx-auto border rounded px-4 py-6 bg-white border-orange-500 my-5 shadow-md">
       <h3 className="text-2xl font-bold text-center text-orange-500 mb-2">
         My Profile
       </h3>
       <hr />
       <FormProvider {...methods}>
         <MyForm onSubmit={handleSubmit} defaultValues={profileData}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
             <MyInput
               name="name"
               label="Name"
@@ -103,7 +103,7 @@ const MyProfilePage = () => {
               css="w-full"
               disabled={!editMode}
             />
-            <div className="col-span-2">
+            <div className="lg:col-span-3 md:col-span-2">
               <MyInput
                 name="bio"
                 label="Bio"
@@ -114,24 +114,24 @@ const MyProfilePage = () => {
                 disabled={!editMode}
               />
             </div>
-            <div>
-              {editMode && (
-                <div className="flex justify-between gap-3">
-                  <button
-                    type="submit"
-                    className="btn btn-sm rounded-full mt-5 bg-blue-500 text-white w-full hover:bg-blue-700"
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={() => setEditMode(false)}
-                    className="btn btn-sm rounded-full mt-5 bg-red-500 text-white w-full hover:bg-red-700"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              )}
-            </div>
+          </div>
+          <div>
+            {editMode && (
+              <div className="flex justify-between gap-3 lg:w-1/2 md:w-2/3 sm:w-full mx-auto">
+                <button
+                  type="submit"
+                  className="btn btn-sm px-12 rounded-full mt-5 bg-blue-500 text-white  hover:bg-blue-700"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setEditMode(false)}
+                  className="btn btn-sm px-12 rounded-full mt-5 bg-red-500 text-white hover:bg-red-700"
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
           </div>
         </MyForm>
       </FormProvider>
