@@ -1,16 +1,20 @@
 "use client";
 import useUserInfo from "@/app/hooks/useUserInfo";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { logoutUser } from "@/services/actions/logoutUser";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const userInfo = useUserInfo();
 
   const handleLogOut = () => {
     logoutUser(router);
+    dispatch(logout());
   };
   return (
     <div>
@@ -78,7 +82,7 @@ const Navbar = () => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link href="/dashboard/my-profile">Profile</Link>
+                  <Link href="/dashboard">Dashboard</Link>
                 </li>
                 <li onClick={handleLogOut}>
                   <span>Logout</span>

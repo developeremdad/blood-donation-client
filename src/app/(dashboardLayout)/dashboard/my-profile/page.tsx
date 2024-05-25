@@ -3,11 +3,14 @@ import MyDatePicker from "@/components/Forms/MyDatePicker";
 import MyForm from "@/components/Forms/MyForm";
 import MyInput from "@/components/Forms/MyInput";
 import MySelect from "@/components/Forms/Myselect";
+import { useGetMyProfileQuery } from "@/redux/features/user/userManagement.api";
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 const MyProfilePage = () => {
+  const { data } = useGetMyProfileQuery(undefined);
+  console.log({ data });
   const methods = useForm({
     defaultValues: {
       username: "john_doe",

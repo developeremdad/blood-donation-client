@@ -1,11 +1,14 @@
 "use client";
 
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { storeUserInfo } from "@/services/actions/auth.services";
 import { userLogin } from "@/services/actions/userLogin";
 import Link from "next/link";
 import { useState } from "react";
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,6 +31,7 @@ const LoginForm = () => {
       if (res?.data?.token) {
         // toast.success(res?.message);
         storeUserInfo({ token: res?.data?.token });
+        dispatch(setUser({ user: res.data, token: res.data.token }));
       } else {
         // setError(res.message);
         console.log(res);

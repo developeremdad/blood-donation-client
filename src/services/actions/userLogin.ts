@@ -15,7 +15,7 @@ export const userLogin = async (data: FieldValues) => {
   const userInfo = await res.json();
 
   if (userInfo.data.token) {
-    setAccessToken(userInfo.data.token, "/");
+    setAccessToken(userInfo.data.token, "/dashboard");
   }
 
   return userInfo;
