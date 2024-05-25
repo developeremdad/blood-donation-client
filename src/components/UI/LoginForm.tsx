@@ -6,6 +6,7 @@ import { storeUserInfo } from "@/services/actions/auth.services";
 import { userLogin } from "@/services/actions/userLogin";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ const LoginForm = () => {
       const res = await userLogin(formData);
       // console.log(res);
       if (res?.data?.token) {
-        // toast.success(res?.message);
+        toast.success(res?.message);
         storeUserInfo({ token: res?.data?.token });
         dispatch(setUser({ user: res.data, token: res.data.token }));
       } else {

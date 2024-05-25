@@ -11,7 +11,7 @@ const MyDonations = () => {
     {
       donorName: "John Doe",
       bloodType: "A+",
-      status: "approved",
+      status: "pending",
       contactInfo: "01625360571",
     },
     {
@@ -43,10 +43,7 @@ const MyDonations = () => {
         <hr className="my-2" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {bloodRequestsMade.map((request, index) => (
-            <div
-              key={index}
-              className="mb-4 p-4 border rounded border-orange-500"
-            >
+            <div key={index} className="p-3 border rounded border-orange-500">
               <p>
                 <strong>Donor&apos;s Name:</strong> {request.donorName}
               </p>
@@ -54,7 +51,22 @@ const MyDonations = () => {
                 <strong>Blood Type:</strong> {request.bloodType}
               </p>
               <p>
-                <strong>Status:</strong> {request.status}
+                <strong>Status:</strong>{" "}
+                {request.status === "approved" && (
+                  <span className="text-green-500 capitalize">
+                    {request.status}
+                  </span>
+                )}
+                {request.status === "rejected" && (
+                  <span className="text-red-500 capitalize">
+                    {request.status}
+                  </span>
+                )}
+                {request.status === "pending" && (
+                  <span className="text-yellow-500 capitalize">
+                    {request.status}
+                  </span>
+                )}
               </p>
               {request.status === "approved" && (
                 <p>
