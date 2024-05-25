@@ -1,14 +1,26 @@
 "use client";
 import Sidebar from "@/components/Dashboard/Sidebar";
 import Navbar from "@/components/shared/Navbar";
+import { isLoggedIn } from "@/services/actions/auth.services";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const user = { name: "emdadullah", role: "admin" };
-  if (!user.role) {
-    return router.push("/login");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, [router]);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
+
   return (
     <div>
       <Navbar />

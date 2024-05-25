@@ -21,13 +21,13 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     try {
       const res = await userLogin(formData);
-      console.log(res);
+      // console.log(res);
       if (res?.data?.token) {
         // toast.success(res?.message);
-        storeUserInfo({ token: res?.data?.accessToken });
+        storeUserInfo({ token: res?.data?.token });
       } else {
         // setError(res.message);
         console.log(res);
