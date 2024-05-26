@@ -177,7 +177,7 @@ const MyProfilePage = () => {
         </button>
       )}
       <div className="form-control mt-4">
-        <Link href="/dashboard/user/change-password">
+        <Link href="/dashboard/change-password">
           <button className="btn btn-sm rounded-full bg-orange-500 text-white w-full hover:bg-orange-600">
             Change Password
           </button>

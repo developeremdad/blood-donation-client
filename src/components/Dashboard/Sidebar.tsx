@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 const Sidebar = () => {
   const userInfo = getUserInfo();
   const router = useRouter();
-  console.log(router);
   return (
     <div className="h-screen bg-gray-300 text-black border border-r-orange-500">
       <div className="p-4">
@@ -41,6 +40,11 @@ const Sidebar = () => {
             <li className="hover:bg-orange-500">
               <Link href="/ ">
                 <span className="block py-2.5 px-4">Home</span>
+              </Link>
+            </li>
+            <li className="hover:bg-orange-500 active:bg-orange-500">
+              <Link href="/dashboard/my-profile">
+                <span className="block py-2.5 px-4">My Profile</span>
               </Link>
             </li>
 
