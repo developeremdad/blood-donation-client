@@ -1,41 +1,43 @@
 "use client";
 import PrivateRoute from "@/components/Dashboard/PrivateRoute";
+import Loading from "@/components/shared/Loading";
+import {
+  useGetAllUsersQuery,
+  useUpdateUserStatusRoleMutation,
+} from "@/redux/features/user/userManagement.api";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "user",
-      availability: false,
-      status: "active",
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      role: "admin",
-      availability: true,
-      status: "deactivate",
-    },
-    // Add more users as needed
-  ]);
+  const [toastId, setToastId] = useState<string | number>(0);
+  const { data: users, isFetching } = useGetAllUsersQuery(undefined);
+  const [updateUserStatusRole, { data: uData }] =
+    useUpdateUserStatusRoleMutation();
+  console.log(users);
+
+  if (uData) {
+    toast.success(uData?.message, { id: toastId });
+  }
 
   const handleUserStatus = (userId: string, status: string) => {
+    const toastId = toast.loading("Status Updating...");
+    setToastId(toastId);
     console.log(userId, status);
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => (user.id === userId ? { ...user, status } : user))
-    );
+    const updateData = {
+      id: userId,
+      data: { status },
+    };
+    updateUserStatusRole(updateData);
   };
 
   const handleRoleChange = (userId: string, newRole: string) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.id === userId ? { ...user, role: newRole } : user
-      )
-    );
+    const toastId = toast.loading("Role Updating...");
+    setToastId(toastId);
+    const updateData = {
+      id: userId,
+      data: { role: newRole },
+    };
+    updateUserStatusRole(updateData);
   };
 
   return (
@@ -45,70 +47,60 @@ const UserManagement = () => {
           User Management
         </h2>
         <div className="overflow-x-auto bg-white border border-orange-500 rounded">
-          <table className="table table-sm w-full">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Availability</th>
-                <th>Role</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    {user.availability ? (
-                      <span className="text-green-500">Available</span>
-                    ) : (
-                      <span className="text-red-500">Unavailable</span>
-                    )}
-                  </td>
-                  <td>
-                    <select
-                      className="py-1 px-4 border rounded-full"
-                      value={user.role}
-                      onChange={(e) =>
-                        handleRoleChange(user.id, e.target.value)
-                      }
-                    >
-                      <option value="user">User</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      className="py-1 px-4 border rounded-full"
-                      value={user.status}
-                      onChange={(e) =>
-                        handleUserStatus(user.id, e.target.value)
-                      }
-                    >
-                      <option value="active">Active</option>
-                      <option value="deactivate">Deactivate</option>
-                    </select>
-                  </td>
+          {!isFetching ? (
+            <table className="table table-sm w-full">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Availability</th>
+                  <th>Role</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="flex items-center justify-center my-5 ">
-            <div className="join ">
-              <button className="join-item btn btn-sm bg-orange-500 text-xl text-white">
-                «
-              </button>
-              <button className="join-item btn btn-sm">1</button>
-              <button className="join-item btn btn-sm btn-active">2</button>
-              <button className="join-item btn btn-sm">3</button>
-              <button className="join-item btn btn-sm">4</button>
-              <button className="join-item btn btn-sm bg-orange-500 text-xl text-white">
-                »
-              </button>
-            </div>
-          </div>
+              </thead>
+              <tbody>
+                {users?.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      {user.availability ? (
+                        <span className="text-green-500">Available</span>
+                      ) : (
+                        <span className="text-red-500">Unavailable</span>
+                      )}
+                    </td>
+                    <td>
+                      <select
+                        className="py-1 px-4 border rounded-full"
+                        value={user.role}
+                        onChange={(e) =>
+                          handleRoleChange(user.id, e.target.value)
+                        }
+                      >
+                        <option value="USER">User</option>
+                        <option value="ADMIN">Admin</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select
+                        className="py-1 px-4 border rounded-full"
+                        value={user.status}
+                        onChange={(e) =>
+                          handleUserStatus(user.id, e.target.value)
+                        }
+                      >
+                        <option value="ACTIVATE">Active</option>
+                        <option value="DEACTIVATED">Deactivate</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </PrivateRoute>

@@ -13,7 +13,6 @@ const PrivateRoute = ({
 }) => {
   const user = getUserInfo();
   const router = useRouter();
-  console.log(roles);
   useEffect(() => {
     if (!user) {
       router.push("/login");

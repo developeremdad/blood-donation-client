@@ -24,6 +24,18 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       providesTags: ["user"],
     }),
+    getAllUsers: builder.query({
+      query: () => {
+        return {
+          url: "/get-users",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TUser[]>) => {
+        return response.data;
+      },
+      providesTags: ["user"],
+    }),
     getUserDetails: builder.query({
       query: (id) => {
         return {
@@ -58,12 +70,24 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+    updateUserStatusRole: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/update-user/${payload.id}`,
+          method: "PUT",
+          body: payload.data,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
 export const {
   useGetAllDonorsQuery,
   useGetMyProfileQuery,
+  useGetAllUsersQuery,
   useGetUserDetailsQuery,
   useUpdateUserProfileMutation,
+  useUpdateUserStatusRoleMutation,
 } = userManagementApi;
