@@ -35,7 +35,7 @@ const DonationTips = () => {
       <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="flex flex-col">
           <div className="h-full">
-            <h1 className="text-3xl font-bold mb-6">
+            <h1 className="text-3xl font-bold mb-10 mt-4">
               Additional tips for the day of your donation
             </h1>
             <div className="rounded-lg bg-gray-100 p-7 flex-1">

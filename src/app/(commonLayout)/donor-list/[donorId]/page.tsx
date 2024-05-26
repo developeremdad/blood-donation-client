@@ -61,16 +61,25 @@ const DonorDetailsPage = ({ params }: any) => {
                 <span className="text-red-500">Unavailable</span>
               )}
             </p>
-            {donor?.contact && (
+            {/* {donor?.contact && (
               <p className="text-gray-500 mb-2">Contact: {donor?.contact}</p>
-            )}
+            )} */}
           </div>
           <div className="card-actions justify-center mt-4">
-            <Link href={`/blood-request?donorId=${donor?.id}`}>
-              <button className="bg-orange-500 py-2 px-6 rounded-full text-white">
+            {donor?.availability ? (
+              <Link href={`/blood-request?donorId=${donor?.id}`}>
+                <button className="bg-orange-500 py-2 px-6 rounded-full text-white">
+                  Request Blood
+                </button>
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="bg-gray-200 py-2 px-6 rounded-full text-white"
+              >
                 Request Blood
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>
