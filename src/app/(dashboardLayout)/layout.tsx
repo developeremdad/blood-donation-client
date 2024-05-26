@@ -18,7 +18,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [router]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <h1 className="text-center text-error mt-48">
+          <span className="loading loading-infinity loading-lg"></span>
+        </h1>
+      </div>
+    );
   }
 
   return (

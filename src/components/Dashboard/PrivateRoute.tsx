@@ -23,7 +23,13 @@ const PrivateRoute = ({
   }, [user, roles, router]);
 
   if (!user || (roles && !roles.includes(user.role))) {
-    return <p>Loading. . . </p>;
+    return (
+      <div>
+        <h1 className="text-center text-error mt-48">
+          <span className="loading loading-infinity loading-lg"></span>
+        </h1>
+      </div>
+    );
   }
 
   return <>{children}</>;
