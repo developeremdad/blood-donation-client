@@ -1,8 +1,11 @@
+"use client";
+import { useGetAllDonorsQuery } from "@/redux/features/user/userManagement.api";
 import Image from "next/image";
 import Link from "next/link";
 
 const DonorsSection = () => {
-  const donors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const { data: donors } = useGetAllDonorsQuery(undefined);
+  // const donors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div className="">
       <div className="container mx-auto py-8">
@@ -80,19 +83,19 @@ const DonorsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-          {donors.map((item, index) => (
+          {donors?.data?.slice(0, 10)?.map((donor, index) => (
             <div
               key={index}
               className="bg-white  rounded-lg  shadow-sm hover:shadow-lg border border-orange-500 overflow-hidden"
             >
               <div className="aspect-w-4 text-center aspect-h-3 p-3 bg-gray-600">
-                {!item?.image ? (
+                {donor?.photo ? (
                   <Image
                     alt="Donor Photo"
                     height={200}
                     width={200}
                     className="size-20 mx-auto rounded-full ring ring-orange-500 ring-offset-base-100 ring-offset-2"
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                    src={donor?.photo}
                   />
                 ) : (
                   <div className="avatar placeholder">
@@ -103,11 +106,21 @@ const DonorsSection = () => {
                 )}
               </div>
               <div className="p-3">
-                <h3 className="text-lg font-medium mb-1">John Doe</h3>
-                <p className="text-gray-500 mb-2">Blood Type: A+</p>
-                <p className="text-gray-500 mb-2">Location: New York, NY</p>
-                <p className="text-green-500 font-medium mb-2">Available</p>
-                <Link className="" href={`/donor-list/3`}>
+                <h3 className="text-lg font-medium mb-1">{donor?.name}</h3>
+                <p className="text-gray-500 mb-2">
+                  Blood Type: {donor?.bloodType ? donor?.bloodType : "N/A"}
+                </p>
+                <p className="text-gray-500 mb-2">
+                  Location: {donor?.location ? donor?.location : "N/A"}
+                </p>
+                <p className="font-medium mb-2">
+                  {donor?.availability ? (
+                    <span className="text-green-500">Available</span>
+                  ) : (
+                    <span className="text-red-500">Unavailable</span>
+                  )}
+                </p>
+                <Link className="" href={`/donor-list/${donor?.id}`}>
                   <button className="btn btn-sm rounded bg-orange-500 text-white w-full hover:bg-orange-700">
                     View Details
                   </button>

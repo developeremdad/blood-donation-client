@@ -10,10 +10,12 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 const MyProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [availability, setAvailability] = useState(false);
+  const [toastId, setToastId] = useState<string | number>(0);
   const { data, isFetching } = useGetMyProfileQuery(undefined);
   const [updateUser, { data: uData, isLoading: uIsLoading }] =
     useUpdateUserProfileMutation();
@@ -23,10 +25,16 @@ const MyProfilePage = () => {
   }
 
   const handleSubmit = (values: FieldValues) => {
+    const toastId = toast.loading("Data saving. . . ");
+    setToastId(toastId);
     values.availability = availability;
     // console.log(values);
     updateUser(values);
   };
+  if (uData?.success) {
+    toast.success(uData?.message, { id: toastId });
+  }
+
   const handleChange = (e: any) => {
     const { checked } = e.target;
     setAvailability(checked);
