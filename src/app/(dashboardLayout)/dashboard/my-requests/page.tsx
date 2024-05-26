@@ -1,49 +1,38 @@
 "use client";
-
 import Loading from "@/components/shared/Loading";
-import { useGetMyBloodRequestReceivedQuery } from "@/redux/features/donation-request/donationRequestManagement.api";
+import {
+  useGetMyBloodRequestReceivedQuery,
+  useUpdateDonationRequestStatusMutation,
+} from "@/redux/features/donation-request/donationRequestManagement.api";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const MyRequest = () => {
+  const [toastId, setToastId] = useState<string | number>(0);
   const { data: requests, isFetching } =
     useGetMyBloodRequestReceivedQuery(undefined);
-  console.log(requests);
-  const [bloodRequestsReceived, setBloodRequestsReceived] = useState([
-    {
-      requesterName: "Jane Smith",
-      bloodTypeNeeded: "B-",
-      status: "pending",
-      phoneNumber: "01625360571",
-    },
-    {
-      requesterName: "Jane Smith",
-      bloodTypeNeeded: "B-",
-      status: "rejected",
-      phoneNumber: "01625360571",
-    },
-    {
-      requesterName: "Jane Smith",
-      bloodTypeNeeded: "B-",
-      status: "pending",
-      phoneNumber: "01625360571",
-    },
-    {
-      requesterName: "Jane Smith",
-      bloodTypeNeeded: "B-",
-      status: "approved",
-      phoneNumber: "01625360571",
-    },
-    // Add more requests as needed
-  ]);
+  const [updateDonationRequestStatus, { data: rData }] =
+    useUpdateDonationRequestStatusMutation();
+
+  if (rData) {
+    toast.success(rData?.message, { id: toastId });
+  }
 
   if (isFetching) {
     <Loading />;
   }
 
-  const handleStatusChange = (index: any, newStatus: string) => {
-    const updatedRequests = [...bloodRequestsReceived];
-    updatedRequests[index].status = newStatus;
-    setBloodRequestsReceived(updatedRequests);
+  const handleStatusChange = (id: any, newStatus: string) => {
+    const toastId = toast.loading("Status Updating...");
+    setToastId(toastId);
+
+    const updateStatusData = {
+      status: {
+        status: newStatus,
+      },
+      id: id,
+    };
+    updateDonationRequestStatus(updateStatusData);
   };
   return (
     <div>
@@ -90,13 +79,13 @@ const MyRequest = () => {
                 <div className="flex gap-2 mt-2">
                   <button
                     className="bg-blue-500 px-3 py-1 rounded text-white"
-                    onClick={() => handleStatusChange(index, "approved")}
+                    onClick={() => handleStatusChange(request.id, "APPROVED")}
                   >
                     Approve
                   </button>
                   <button
                     className="bg-orange-500 px-3 py-1 rounded text-white"
-                    onClick={() => handleStatusChange(index, "rejected")}
+                    onClick={() => handleStatusChange(request.id, "REJECTED")}
                   >
                     Reject
                   </button>

@@ -29,6 +29,17 @@ const donationRequestManagementApi = baseApi.injectEndpoints({
       },
       providesTags: ["request"],
     }),
+    updateDonationRequestStatus: builder.mutation({
+      query: (payload) => {
+        const { status, id } = payload;
+        return {
+          url: `/donation-request/${id}`,
+          method: "PUT",
+          body: status,
+        };
+      },
+      invalidatesTags: ["request"],
+    }),
     addDonationRequest: builder.mutation({
       query: (payload) => {
         return {
@@ -45,4 +56,5 @@ const donationRequestManagementApi = baseApi.injectEndpoints({
 export const {
   useAddDonationRequestMutation,
   useGetMyBloodRequestReceivedQuery,
+  useUpdateDonationRequestStatusMutation,
 } = donationRequestManagementApi;
