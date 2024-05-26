@@ -1,6 +1,5 @@
-// "use server";
-
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 import setAccessToken from "./setAccessToken";
 
 export const userLogin = async (data: FieldValues) => {
@@ -13,6 +12,9 @@ export const userLogin = async (data: FieldValues) => {
     credentials: "include",
   });
   const userInfo = await res.json();
+  if (!userInfo?.success) {
+    toast.error(userInfo?.message);
+  }
 
   if (userInfo.data.token) {
     setAccessToken(userInfo.data.token, "/dashboard");

@@ -1,8 +1,11 @@
 import { getUserInfo } from "@/services/actions/auth.services";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const userInfo = getUserInfo();
+  const router = useRouter();
+  console.log(router);
   return (
     <div className="h-screen bg-gray-300 text-black border border-r-orange-500">
       <div className="p-4">
@@ -29,11 +32,6 @@ const Sidebar = () => {
             <li className="hover:bg-orange-500">
               <Link href="/dashboard/my-donations">
                 <span className="block py-2.5 px-4">My Donations</span>
-              </Link>
-            </li>
-            <li className="hover:bg-orange-500">
-              <Link href="/dashboard/user-management">
-                <span className="block py-2.5 px-4">Manage Users</span>
               </Link>
             </li>
           </ul>

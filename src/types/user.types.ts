@@ -9,6 +9,7 @@ export type TUserPayload = {
 export interface TUser {
   id: string;
   name: string;
+  status: string;
   email: string;
   bloodType: string;
   location: string;

@@ -25,22 +25,26 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // console.log(formData);
+
     try {
       const res = await userLogin(formData);
-      // console.log(res);
+
       if (res?.data?.token) {
+        // Successful login
         toast.success(res?.message);
         storeUserInfo({ token: res?.data?.token });
         dispatch(setUser({ user: res.data, token: res.data.token }));
       } else {
-        // setError(res.message);
+        // Failed login
+        toast.error(res?.message);
         console.log(res);
       }
     } catch (err: any) {
       console.error(err?.message);
+      // toast.error("Invalid credentials, Please try again.");
     }
   };
+
   return (
     <form className="card-body" onSubmit={handleSubmit}>
       <h1 className="text-3xl font-bold text-center text-orange-500">
