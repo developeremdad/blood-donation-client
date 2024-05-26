@@ -30,7 +30,7 @@
 
 ### Run build project
 
-    npm run start:prod
+    npm run start
 
 ## Technology used
 
