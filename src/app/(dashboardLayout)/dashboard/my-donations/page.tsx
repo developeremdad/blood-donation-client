@@ -1,6 +1,8 @@
 "use client";
+import { useGetMyBloodDonationRequestsQuery } from "@/redux/features/donation-request/donationRequestManagement.api";
 import { useState } from "react";
 const MyDonations = () => {
+  const { data, isFetching } = useGetMyBloodDonationRequestsQuery(undefined);
   const [bloodRequestsMade, setBloodRequestsMade] = useState([
     {
       donorName: "John Doe",
@@ -34,6 +36,8 @@ const MyDonations = () => {
     },
     // Add more requests as needed
   ]);
+  console.log(data);
+
   return (
     <div>
       <div className="container mx-auto">
@@ -42,40 +46,45 @@ const MyDonations = () => {
         </h2>
         <hr className="my-2" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {bloodRequestsMade.map((request, index) => (
+          {data?.map((donation, index) => (
             <div key={index} className="p-3 border rounded border-orange-500">
-              <p>
-                <strong>Donor&apos;s Name:</strong> {request.donorName}
+              <p className="capitalize">
+                <strong>Donor&apos;s Name:</strong> {donation?.donor?.name}
               </p>
               <p>
-                <strong>Blood Type:</strong> {request.bloodType}
+                <strong>Blood Type:</strong> {donation?.donor?.bloodType}
               </p>
               <p>
                 <strong>Status:</strong>{" "}
-                {request.status === "approved" && (
+                {donation?.requestStatus === "APPROVED" && (
                   <span className="text-green-500 capitalize">
-                    {request.status}
+                    {donation?.requestStatus}
                   </span>
                 )}
-                {request.status === "rejected" && (
+                {donation?.requestStatus === "REJECTED" && (
                   <span className="text-red-500 capitalize">
-                    {request.status}
+                    {donation?.requestStatus}
                   </span>
                 )}
-                {request.status === "pending" && (
+                {donation?.requestStatus === "PENDING" && (
                   <span className="text-yellow-500 capitalize">
-                    {request.status}
+                    {donation?.requestStatus}
                   </span>
                 )}
               </p>
-              {request.status === "approved" && (
+              {donation?.requestStatus === "APPROVED" && (
                 <p>
-                  <strong>Contact Info:</strong> {request.contactInfo}
+                  <strong>Contact Info:</strong> {donation?.donor?.contact}
                 </p>
               )}
             </div>
           ))}
         </div>
+        {!data?.length && (
+          <div className="bg-orange-100 p-5 flex items-center justify-center rounded-lg">
+            <h2 className="text-xl font-bold">Data not found</h2>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,7 @@
-import { TRequestDonation } from "@/types/donationRequest.type";
+import {
+  TMyDonationRequests,
+  TRequestDonation,
+} from "@/types/donationRequest.type";
 import { TResponseRedux } from "@/types/global";
 import { TUser } from "@/types/user.types";
 import { baseApi } from "../../api/baseApi";
@@ -25,6 +28,18 @@ const donationRequestManagementApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: TResponseRedux<TRequestDonation[]>) => {
+        return response.data;
+      },
+      providesTags: ["request"],
+    }),
+    getMyBloodDonationRequests: builder.query({
+      query: () => {
+        return {
+          url: "/my-donations",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TMyDonationRequests[]>) => {
         return response.data;
       },
       providesTags: ["request"],
@@ -56,5 +71,6 @@ const donationRequestManagementApi = baseApi.injectEndpoints({
 export const {
   useAddDonationRequestMutation,
   useGetMyBloodRequestReceivedQuery,
+  useGetMyBloodDonationRequestsQuery,
   useUpdateDonationRequestStatusMutation,
 } = donationRequestManagementApi;

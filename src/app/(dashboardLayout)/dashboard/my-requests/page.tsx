@@ -94,6 +94,11 @@ const MyRequest = () => {
             </div>
           ))}
         </div>
+        {!requests?.length && (
+          <div className="bg-orange-100 p-5 flex items-center justify-center rounded-lg">
+            <h2 className="text-xl font-bold">Data not found</h2>
+          </div>
+        )}
       </div>
     </div>
   );
