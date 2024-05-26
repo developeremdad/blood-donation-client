@@ -1,6 +1,6 @@
 import { baseApi } from "../../api/baseApi";
 
-const metaDataManagementApi = baseApi.injectEndpoints({
+const userManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getMyProfile: builder.query({
       query: () => {
@@ -12,8 +12,20 @@ const metaDataManagementApi = baseApi.injectEndpoints({
       transformResponse: (response: any) => {
         return response;
       },
+      providesTags: ["user"],
+    }),
+    updateUserProfile: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/update-profile",
+          method: "PUT",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["user"],
     }),
   }),
 });
 
-export const { useGetMyProfileQuery } = metaDataManagementApi;
+export const { useGetMyProfileQuery, useUpdateUserProfileMutation } =
+  userManagementApi;
