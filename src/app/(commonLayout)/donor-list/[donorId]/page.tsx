@@ -8,16 +8,6 @@ const DonorDetailsPage = ({ params }: any) => {
   const { data: donor } = useGetUserDetailsQuery(params?.donorId, {
     skip: !params?.donorId,
   });
-  console.log(donor);
-  // const donor = {
-  //   name: "John Doe",
-  //   photo:
-  //     "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D", // Replace with actual photo path
-  //   bloodType: "O+",
-  //   location: "New York, NY",
-  //   availability: "Available",
-  //   contact: "01625360571",
-  // };
 
   return (
     <div className="container mx-auto my-10">

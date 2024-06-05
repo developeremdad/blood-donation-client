@@ -1,8 +1,10 @@
 "use client";
 import useUserInfo from "@/app/hooks/useUserInfo";
+import logo from "@/assets/logo.png";
 import { logout } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { logoutUser } from "@/services/actions/logoutUser";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -49,7 +51,9 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">Logo</a>
+          <Link href="/" className="">
+            <Image src={logo} height={40} alt="logo" />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
