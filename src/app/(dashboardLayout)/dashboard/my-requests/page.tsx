@@ -1,100 +1,85 @@
 "use client";
-import Loading from "@/components/shared/Loading";
-import {
-  useGetMyBloodRequestReceivedQuery,
-  useUpdateDonationRequestStatusMutation,
-} from "@/redux/features/donation-request/donationRequestManagement.api";
+import { useGetMyBloodDonationRequestsQuery } from "@/redux/features/donation-request/donationRequestManagement.api";
 import { useState } from "react";
-import { toast } from "sonner";
-
 const MyRequest = () => {
-  const [toastId, setToastId] = useState<string | number>(0);
-  const { data: requests, isFetching } =
-    useGetMyBloodRequestReceivedQuery(undefined);
-  const [updateDonationRequestStatus, { data: rData }] =
-    useUpdateDonationRequestStatusMutation();
+  const { data, isFetching } = useGetMyBloodDonationRequestsQuery(undefined);
+  const [bloodRequestsMade, setBloodRequestsMade] = useState([
+    {
+      donorName: "John Doe",
+      bloodType: "A+",
+      status: "approved",
+      contactInfo: "01625360571",
+    },
+    {
+      donorName: "John Doe",
+      bloodType: "A+",
+      status: "pending",
+      contactInfo: "01625360571",
+    },
+    {
+      donorName: "John Doe",
+      bloodType: "A+",
+      status: "approved",
+      contactInfo: "01625360571",
+    },
+    {
+      donorName: "John Doe",
+      bloodType: "A+",
+      status: "approved",
+      contactInfo: "01625360571",
+    },
+    {
+      donorName: "John Doe",
+      bloodType: "A+",
+      status: "rejected",
+      contactInfo: "01625360571",
+    },
+    // Add more requests as needed
+  ]);
 
-  if (rData) {
-    toast.success(rData?.message, { id: toastId });
-  }
-
-  if (isFetching) {
-    <Loading />;
-  }
-
-  const handleStatusChange = (id: any, newStatus: string) => {
-    const toastId = toast.loading("Status Updating...");
-    setToastId(toastId);
-
-    const updateStatusData = {
-      status: {
-        status: newStatus,
-      },
-      id: id,
-    };
-    updateDonationRequestStatus(updateStatusData);
-  };
   return (
     <div>
       <div className="container mx-auto">
         <h2 className="text-2xl font-bold text-center text-orange-500">
-          My Blood Request Received
+          Requests For Blood
         </h2>
         <hr className="my-2" />
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {requests?.map((request, index) => (
-            <div
-              key={index}
-              className="p-4 border rounded bg-white shadow  border-orange-500"
-            >
+          {data?.map((donation, index) => (
+            <div key={index} className="p-3 border rounded border-orange-500">
               <p className="capitalize">
-                <strong>Requesters Name:</strong> {request?.requester?.name}
+                <strong>Donor&apos;s Name:</strong> {donation?.donor?.name}
               </p>
               <p>
-                <strong>Blood Type Needed:</strong> {request?.donor?.bloodType}
+                <strong>Blood Type:</strong> {donation?.donor?.bloodType}
               </p>
-              <p className="capitalize">
+              <p>
                 <strong>Status:</strong>{" "}
-                {request?.requestStatus === "APPROVED" && (
-                  <span className="text-green-500">
-                    {request?.requestStatus}
+                {donation?.requestStatus === "APPROVED" && (
+                  <span className="text-green-500 capitalize">
+                    {donation?.requestStatus}
                   </span>
                 )}
-                {request?.requestStatus === "REJECTED" && (
-                  <span className="text-red-500">{request?.requestStatus}</span>
+                {donation?.requestStatus === "REJECTED" && (
+                  <span className="text-red-500 capitalize">
+                    {donation?.requestStatus}
+                  </span>
                 )}
-                {request?.requestStatus === "PENDING" && (
-                  <span className="text-yellow-500">
-                    {request?.requestStatus}
+                {donation?.requestStatus === "PENDING" && (
+                  <span className="text-yellow-500 capitalize">
+                    {donation?.requestStatus}
                   </span>
                 )}
               </p>
-              {request?.requestStatus === "APPROVED" && (
+              {donation?.requestStatus === "APPROVED" && (
                 <p>
-                  <strong>Contact Info:</strong> {request.phoneNumber}
+                  <strong>Contact Info:</strong> {donation?.donor?.contact}
                 </p>
-              )}
-              {request?.requestStatus === "PENDING" && (
-                <div className="flex gap-2 mt-2">
-                  <button
-                    className="bg-blue-500 px-3 py-1 rounded text-white"
-                    onClick={() => handleStatusChange(request.id, "APPROVED")}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="bg-orange-500 px-3 py-1 rounded text-white"
-                    onClick={() => handleStatusChange(request.id, "REJECTED")}
-                  >
-                    Reject
-                  </button>
-                </div>
               )}
             </div>
           ))}
         </div>
-        {!requests?.length && (
+        {!data?.length && (
           <div className="bg-orange-100 p-5 flex items-center justify-center rounded-lg">
             <h2 className="text-xl font-bold">Data not found</h2>
           </div>
