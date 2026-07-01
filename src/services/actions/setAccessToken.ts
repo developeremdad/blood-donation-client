@@ -4,8 +4,10 @@ import { cookies } from "next/headers";
 
 import { redirect } from "next/navigation";
 
-const setAccessToken = (token: string, redirectPath?: string) => {
-  cookies().set("token", token);
+const setAccessToken = async (token: string, redirectPath?: string) => {
+  const cookieStore = await cookies();
+
+  cookieStore.set("token", token);
   if (redirect) {
     redirect(redirectPath || "/");
   }

@@ -30,7 +30,7 @@ export const isLoggedIn = () => {
     const currentTime = Math.floor(Date.now() / 1000);
     if (decodedData.exp < currentTime) {
       removeUser();
-      deleteCookies(["token", "refreshToken"]);
+      void deleteCookies(["token", "refreshToken"]);
       return false;
     }
     return !!authToken;

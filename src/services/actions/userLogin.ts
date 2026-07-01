@@ -17,7 +17,7 @@ export const userLogin = async (data: FieldValues) => {
   }
 
   if (userInfo.data.token) {
-    setAccessToken(userInfo.data.token, "/dashboard");
+    await setAccessToken(userInfo.data.token, "/dashboard");
   }
 
   return userInfo;

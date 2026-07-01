@@ -4,18 +4,16 @@ import { useGetAllDonorsQuery } from "@/redux/features/user/userManagement.api";
 import { useDebounced } from "@/redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const DonorsList = ({
-  searchParams,
-}: {
-  searchParams: { searchTerm: string };
-}) => {
+const DonorsList = () => {
+  const searchParams = useSearchParams();
   const [page, setPage] = useState<number>(1);
   const [availability, setAvailability] = useState<boolean | string>("all");
   const [bloodType, setBloodType] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>(
-    searchParams?.searchTerm || ""
+    searchParams.get("searchTerm") || ""
   );
 
   const debounced = useDebounced({ searchQuery: searchTerm, delay: 700 });

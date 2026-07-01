@@ -1,11 +1,13 @@
 import PrivateRoute from "@/components/Dashboard/PrivateRoute";
 import BloodRequestForm from "@/components/UI/BloodRequestForm";
 
-const BloodRequestPage = ({
+const BloodRequestPage = async ({
   searchParams,
 }: {
-  searchParams: { donorId: string };
+  searchParams: Promise<{ donorId?: string }>;
 }) => {
+  const { donorId } = await searchParams;
+
   return (
     <PrivateRoute roles={["user", "admin"]}>
       <div className="container mx-auto flex justify-center">
@@ -13,7 +15,7 @@ const BloodRequestPage = ({
           <h3 className="text-2xl font-bold text-center text-orange-500">
             Blood Request Form
           </h3>
-          <BloodRequestForm donorId={searchParams?.donorId} />
+          <BloodRequestForm donorId={donorId || ""} />
         </div>
       </div>
     </PrivateRoute>
